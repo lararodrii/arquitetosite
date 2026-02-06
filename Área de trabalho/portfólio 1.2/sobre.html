@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim - Landy's Portfolio</title>
+
+    <!-- ================================================================= -->
+    <!-- FONTS IMPORT (GOOGLE FONTS)                                       -->
+    <!-- ================================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;700&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ================================================================= */
+        /* CSS: GLOBAL STYLES                                                */
+        /* ================================================================= */
+        body {
+            margin: 0;
+            background: #fff;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            cursor: none;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ================================================================= */
+        /* CSS: CUSTOM CURSOR                                                */
+        /* ================================================================= */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+            mix-blend-mode: normal;
+        }
+
+        /* INVERT CURSOR COLOR ON DARK BACKGROUNDS */
+        .cursor.inverse {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .cursor.grow {
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border: 2px solid #000;
+            opacity: 1;
+        }
+
+        .cursor.inverse.grow {
+            border-color: #fff;
+        }
+
+        /* ================================================================= */
+        /* CSS: HEADER & NAVIGATION                                          */
+        /* ================================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            background: #000;
+            color: #fff;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.2s ease;
+            cursor: none;
+            line-height: 1;
+        }
+
+        .logo:hover {
+            color: #E64398;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            cursor: none;
+        }
+
+        nav a:hover {
+            color: #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: TOP SECTION (WHITE BG)                                       */
+        /* ================================================================= */
+        .top-section {
+            background-color: #fff;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 110px;
+            /* Header Offset */
+            min-height: 50vh;
+            position: relative;
+        }
+
+        /* 3D FLOATING NAME BOX */
+        .landy-box {
+            background: #000;
+            color: #fff;
+            padding: 20px 60px;
+            font-family: 'Anton', sans-serif;
+            font-size: 8rem;
+            letter-spacing: 5px;
+            box-shadow: -20px 20px 0 0 #E64398;
+            /* Brutalist Pink Shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
+        }
+
+        .landy-box:hover {
+            transform: translate(5px, -5px);
+            box-shadow: -25px 25px 0 0 #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: DIVIDER MARQUEE (INFINITE SCROLL)                            */
+        /* ================================================================= */
+        .divider-marquee {
+            background-color: #000;
+            color: #fff;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 5px solid #E64398;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: scroll-text 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 0 40px;
+        }
+
+        @keyframes scroll-text {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* ================================================================= */
+        /* CSS: BOTTOM SECTION (BLACK BG / SOFTWARE)                         */
+        /* ================================================================= */
+        .bottom-section {
+            background-color: #111;
+            padding: 80px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 40vh;
+        }
+
+        .software-grid {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .software-icon {
+            width: 100px;
+            height: 100px;
+            background: #222;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #888;
+            filter: grayscale(100%);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #333;
+        }
+
+        /* ICON HOVER COLORS */
+        .software-icon[data-soft="Ps"]:hover {
+            color: #31A8FF;
+            border-color: #31A8FF;
+            filter: grayscale(0%);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 20px rgba(49, 168, 255, 0.2);
+        }
+
+        .software-icon[data-soft="Ai"]:hover {
+            color: #FF9A00;
+            border-color: #FF9A00;
+            filter: grayscale(0%);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 20px rgba(255, 154, 0, 0.2);
+        }
+
+        .software-icon[data-soft="Id"]:hover {
+            color: #FF3366;
+            border-color: #FF3366;
+            filter: grayscale(0%);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+        }
+
+        .software-icon[data-soft="Pr"]:hover {
+            color: #9933FF;
+            border-color: #9933FF;
+            filter: grayscale(0%);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 20px rgba(153, 51, 255, 0.2);
+        }
+
+        .software-icon[data-soft="Cap"]:hover {
+            color: #000;
+            background-color: #fff;
+            border-color: #fff;
+            filter: grayscale(0%);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .bio-text {
+            color: #888;
+            font-family: 'Montserrat', sans-serif;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .bio-title {
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* ================================================================= */
+        /* CSS: RESPONSIVE MEDIA QUERIES                                     */
+        /* ================================================================= */
+        @media (max-width: 900px) {
+            header {
+                height: 80px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .landy-box {
+                font-size: 5rem;
+                padding: 15px 40px;
+            }
+
+            .software-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .top-section {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cursor {
+                display: none;
+            }
+
+            body,
+            .logo,
+            nav a {
+                cursor: auto;
+            }
+
+            .landy-box {
+                font-size: 3.5rem;
+                padding: 10px 25px;
+                box-shadow: -10px 10px 0 0 #E64398;
+            }
+
+            .software-grid {
+                gap: 20px;
+            }
+
+            .software-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .bio-text {
+                font-size: 0.9rem;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor"></div>
+
+    <!-- ================================================================= -->
+    <!-- HEADER START                                                      -->
+    <!-- ================================================================= -->
+    <header>
+        <a href="index.html" class="logo hover-target">LANDY'S PORTFOLIO</a>
+        <nav>
+            <a href="index.html#portfolio" class="hover-target">TRABALHOS</a>
+            <a href="sobre.html" class="hover-target">SOBRE MIM</a>
+        </nav>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- TOP SECTION (NAME REVEAL)                                         -->
+    <!-- ================================================================= -->
+    <section class="top-section">
+        <div class="landy-box hover-target">LANDY</div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- MARQUEE DIVIDER                                                   -->
+    <!-- ================================================================= -->
+    <div class="divider-marquee">
+        <div class="marquee-track">
+            <span class="marquee-item">PUBLICIDADE • DESIGN • DIREÇÃO DE ARTE • CRIATIVIDADE • VISUAL • MOTION •</span>
+            <span class="marquee-item">PUBLICIDADE • DESIGN • DIREÇÃO DE ARTE • CRIATIVIDADE • VISUAL • MOTION •</span>
+            <span class="marquee-item">PUBLICIDADE • DESIGN • DIREÇÃO DE ARTE • CRIATIVIDADE • VISUAL • MOTION •</span>
+            <span class="marquee-item">PUBLICIDADE • DESIGN • DIREÇÃO DE ARTE • CRIATIVIDADE • VISUAL • MOTION •</span>
+            <span class="marquee-item">PUBLICIDADE • DESIGN • DIREÇÃO DE ARTE • CRIATIVIDADE • VISUAL • MOTION •</span>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- BOTTOM SECTION (SOFTWARE SKILLS)                                  -->
+    <!-- ================================================================= -->
+    <section class="bottom-section dark-bg">
+        <h2 class="bio-title">Ferramentas Criativas</h2>
+        <p class="bio-text">
+            Apaixonada por criar narrativas visuais impactantes. Aqui estão as ferramentas que uso para tirar as ideias
+            do papel e transformá-las em realidade digital.
+        </p>
+
+        <div class="software-grid">
+            <div class="software-icon hover-target" data-soft="Ps">Ps</div>
+            <div class="software-icon hover-target" data-soft="Ai">Ai</div>
+            <div class="software-icon hover-target" data-soft="Id">Id</div>
+            <div class="software-icon hover-target" data-soft="Pr">Pr</div>
+            <div class="software-icon hover-target" data-soft="Cap">Cap</div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- JAVASCRIPT: CURSOR LOGIC                                          -->
+    <!-- ================================================================= -->
+    <script>
+        const cursor = document.querySelector(".cursor");
+        const hoverTargets = document.querySelectorAll(".hover-target, a, .landy-box, .software-icon");
+        const bottomSection = document.querySelector('.bottom-section');
+
+        // Cursor Movement
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        // Invert Cursor Color on Scroll over Black Section
+        document.addEventListener('scroll', () => {
+            const rect = bottomSection.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2) {
+                cursor.classList.add('inverse');
+            } else {
+                cursor.classList.remove('inverse');
+            }
+        });
+
+        // Hover Grow Effect
+        hoverTargets.forEach((target) => {
+            target.addEventListener("mouseenter", () => cursor.classList.add("grow"));
+            target.addEventListener("mouseleave", () => cursor.classList.remove("grow"));
+        });
+    </script>
+</body>
+
+</html>

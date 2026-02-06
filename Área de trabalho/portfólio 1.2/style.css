@@ -1,0 +1,25 @@
+/* Nova barra preta com efeito hover */
+.cta-bar {
+    background-color: #000;
+    width: 100%;
+    padding: 60px 0; /* Espaçamento interno para a barra ficar alta */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-top: 1px solid #333; /* Opcional: uma linha sutil para separar do canvas */
+}
+
+.cta-text {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem); /* Tamanho grande e responsivo */
+    color: #fff; /* Começa branco */
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+/* Quando passa o mouse na barra, o texto fica rosa */
+.cta-bar:hover .cta-text {
+    color: #E64398;
+}

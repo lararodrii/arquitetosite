@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landy's Portfolio - Final Fix</title>
+
+    <!-- ================================================================= -->
+    <!-- FONTS IMPORT (GOOGLE FONTS)                                       -->
+    <!-- ================================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500&family=Montserrat:wght@300&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ================================================================= */
+        /* CSS: GLOBAL STYLES / RESET                                        */
+        /* ================================================================= */
+        body {
+            margin: 0;
+            background: #fff;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            cursor: none;
+            /* Custom cursor takes over */
+        }
+
+        /* ================================================================= */
+        /* CSS: CUSTOM CURSOR                                                */
+        /* ================================================================= */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            /* Ensures clicks pass through */
+            z-index: 9999;
+            mix-blend-mode: difference;
+            /* Inverts colors for visibility */
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+        }
+
+        .cursor.grow {
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border: 2px solid #fff;
+            mix-blend-mode: difference;
+            opacity: 1;
+        }
+
+        /* ================================================================= */
+        /* CSS: HEADER & NAVIGATION                                          */
+        /* ================================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            background: #000;
+            color: #fff;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.2s ease;
+            cursor: none;
+            line-height: 1;
+        }
+
+        .logo:hover {
+            color: #E64398;
+            /* Highlight Color */
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            cursor: none;
+        }
+
+        nav a:hover {
+            color: #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: HERO SECTION (CANVAS WRAPPER)                                */
+        /* ================================================================= */
+        .hero-section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: #fff;
+            z-index: 10;
+        }
+
+        #stage-hero {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ================================================================= */
+        /* CSS: CTA BAR (BLACK STRIP)                                        */
+        /* ================================================================= */
+        .cta-bar {
+            background-color: #000;
+            width: 100%;
+            padding: 45px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+            border-top: 2px solid white;
+            cursor: none;
+        }
+
+        .cta-text {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 9vw, 7rem);
+            color: #fff;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .cta-bar:hover .cta-text {
+            color: #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: PORTFOLIO SECTION (CARDS)                                    */
+        /* ================================================================= */
+        .portfolio-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #kinetic-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .cards-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            gap: 60px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            border-radius: 30px;
+        }
+
+        /* --- CARD STYLE (3D BOX SHADOW) --- */
+        .card {
+            background: #000;
+            /* Front Color */
+            width: 400px;
+            height: 320px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            cursor: none;
+            border: none;
+        }
+
+        /* COLORS FOR 3D SHADOWS */
+        .card.art {
+            box-shadow: -15px 15px 0 0 #0090D4;
+        }
+
+        .card.foto {
+            box-shadow: -15px 15px 0 0 #E64398;
+        }
+
+        .card.flyer {
+            box-shadow: -15px 15px 0 0 #F8CF2C;
+        }
+
+        /* HOVER EFFECT: LIFT CARD */
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h2 {
+            font-family: 'Anton', sans-serif;
+            color: #fff;
+            font-size: 3.5rem;
+            margin: 0 0 40px 0;
+            text-align: center;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-ver-mais {
+            background: #fff;
+            color: #000;
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+            cursor: none;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        /* HOVER EFFECT: COLOR BUTTONS */
+        .card.art:hover .btn-ver-mais {
+            background-color: #0090D4;
+            color: #fff;
+        }
+
+        .card.foto:hover .btn-ver-mais {
+            background-color: #E64398;
+            color: #fff;
+        }
+
+        .card.flyer:hover .btn-ver-mais {
+            background-color: #F8CF2C;
+            color: #000;
+        }
+
+        /* ================================================================= */
+        /* CSS: RECENT GALLERY (GRID SYSTEM)                                 */
+        /* ================================================================= */
+        .gallery-section {
+            position: relative;
+            z-index: 20;
+            padding: 100px 5vw;
+            background: #000;
+            border-top: 2px solid #fff;
+        }
+
+        .gallery-title {
+            font-family: 'Anton', sans-serif;
+            color: #fff;
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .gallery-title:hover {
+            color: #E64398;
+        }
+
+        /* GRID LAYOUT (FIXED 3 COLUMNS) */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .masonry-item {
+            margin-bottom: 0;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: 600px;
+            /* FIXED HEIGHT FOR ALIGNMENT */
+            object-fit: cover;
+            /* CROPS TO FIT */
+            display: block;
+            border-radius: 10px;
+            filter: grayscale(100%);
+            transition: filter 0.4s ease, transform 0.3s ease;
+            cursor: none;
+        }
+
+        .masonry-item img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        /* ================================================================= */
+        /* CSS: MEDIA QUERIES (RESPONSIVE)                                  */
+        /* ================================================================= */
+        @media (max-width: 768px) {
+            .masonry-grid {
+                grid-template-columns: 1fr;
+                /* Single column on mobile */
+            }
+
+            .gallery-title {
+                font-size: 2.5rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            header {
+                height: 80px;
+                padding: 0 20px;
+            }
+
+            .cursor {
+                display: none;
+                /* Hide custom cursor on touch devices */
+            }
+
+            body,
+            a,
+            button,
+            .card {
+                cursor: auto;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .card {
+                width: 85%;
+                margin-left: 20px;
+                margin-bottom: 40px;
+            }
+        }
+
+        .bottom-bar {
+            width: 100%;
+            height: 40px;
+            background: #000;
+            position: relative;
+            z-index: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR ELEMENT -->
+    <div class="cursor"></div>
+
+    <!-- ================================================================= -->
+    <!-- HEADER START                                                      -->
+    <!-- ================================================================= -->
+    <header>
+        <a href="#" class="logo hover-target">LANDY'S PORTFOLIO</a>
+        <nav>
+            <a href="#portfolio" class="hover-target">TRABALHOS</a>
+            <a href="sobre.html" class="hover-target">SOBRE MIM</a>
+        </nav>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- HERO SECTION START                                                -->
+    <!-- ================================================================= -->
+    <section class="hero-section">
+        <canvas id="stage-hero"></canvas>
+    </section>
+
+    <!-- CTA BAR -->
+    <div class="cta-bar hover-target"
+        onclick="document.querySelector('.portfolio-section').scrollIntoView({behavior: 'smooth'})">
+        <span class="cta-text">CLIQUE PARA COMEÇAR</span>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PORTFOLIO SECTION START                                           -->
+    <!-- ================================================================= -->
+    <section class="portfolio-section" id="portfolio">
+        <canvas id="kinetic-bg"></canvas>
+
+        <div class="cards-container">
+            <!-- CARD 1: ART WORK -->
+            <div class="card art hover-target">
+                <h2>ART WORK</h2>
+                <a href="artwork.html" class="btn-ver-mais">VER MAIS</a>
+            </div>
+            <!-- CARD 2: FOTOGRAFIA -->
+            <div class="card foto hover-target">
+                <h2>FOTOGRAFIA</h2>
+                <a href="fotografia.html" class="btn-ver-mais">VER MAIS</a>
+            </div>
+            <!-- CARD 3: FLYERS -->
+            <div class="card flyer hover-target">
+                <h2>FLYERS</h2>
+                <a href="flyers.html" class="btn-ver-mais">VER MAIS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- GALLERY SECTION START                                             -->
+    <!-- ================================================================= -->
+    <section class="gallery-section" id="work">
+        <h2 class="gallery-title hover-target">Galeria Recente</h2>
+        <div class="masonry-grid">
+            <!-- ORIGINAL ITEMS -->
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop"
+                    class="hover-target" alt="Work 1"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop"
+                    class="hover-target" alt="Work 2"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop"
+                    class="hover-target" alt="Work 3"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+                    class="hover-target" alt="Work 4"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                    class="hover-target" alt="Work 5"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Work 6"></div>
+
+            <!-- NEW ITEMS -->
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Architecture"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Fashion"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Neon"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Portrait"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Minimal"></div>
+            <div class="masonry-item"><img
+                    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1964&auto=format&fit=crop"
+                    class="hover-target" alt="Urban"></div>
+        </div>
+    </section>
+
+    <div class="bottom-bar"></div>
+
+    <!-- ================================================================= -->
+    <!-- JAVASCRIPT SECTION                                                -->
+    <!-- ================================================================= -->
+    <script>
+        /* ------------------------------------------------------------------
+           SCRIPT 1: CUSTOM CURSOR BEHAVIOR
+           ------------------------------------------------------------------ */
+        const cursor = document.querySelector(".cursor");
+        // Elements that trigger cursor growth
+        const hoverTargets = document.querySelectorAll(".hover-target, a, button, .card, .cta-bar, .masonry-item img, .gallery-title");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        hoverTargets.forEach((target) => {
+            target.addEventListener("mouseenter", () => cursor.classList.add("grow"));
+            target.addEventListener("mouseleave", () => cursor.classList.remove("grow"));
+        });
+
+        /* ------------------------------------------------------------------
+           SCRIPT 2: HERO KINETIC ANIMATION (3D TUNNEL TEXT)
+           ------------------------------------------------------------------ */
+        const canvasHero = document.getElementById('stage-hero');
+        const ctxHero = canvasHero.getContext('2d');
+
+        // CONFIGURATION
+        const TEXT_LINES = ["CRIATIVIDADE", "SEM", "HIERARQUIA"];
+        const PALETTE = ["#F8CF2C", "#E64398", "#0090D4", "#59AD46"];
+        const FONT_SIZE_VW = 10.0;
+        const BASE_LETTER_SPACING = -0.02;
+        const LINE_HEIGHT = 0.90;
+        const LETTER_THICKNESS = 2;
+
+        // ANIMATION PARAMS
+        const EXTRA_SPACING_WAVE = 0.15;
+        const VERTICAL_EXPLOSION = 120;
+        const WAVE_DELAY_CHARS = 150;
+        const WAVE_DELAY_LINES = 200;
+        const TUNNEL_STEPS = 45;
+        const MAX_DEPTH = 0.35;
+        const SPEED_FACTOR = 0.0015;
+        const ZOOM_INTENSITY = 0.5;
+        const CENTER_OFFSET_Y = 120;
+
+        let wHero, hHero, cxHero, cyHero, fontSizeHero;
+        let lastTimestampHero = 0;
+        let elapsedHero = 0;
+
+        function resizeHero() {
+            const dpr = window.devicePixelRatio || 1;
+            wHero = window.innerWidth;
+            hHero = window.innerHeight;
+            canvasHero.width = wHero * dpr;
+            canvasHero.height = hHero * dpr;
+            ctxHero.scale(dpr, dpr);
+
+            cxHero = wHero / 2;
+            cyHero = (hHero / 2) + CENTER_OFFSET_Y;
+            fontSizeHero = (wHero * FONT_SIZE_VW) / 100;
+
+            ctxHero.font = `${fontSizeHero}px "Anton"`;
+            ctxHero.textAlign = "center";
+            ctxHero.textBaseline = "middle";
+            ctxHero.lineJoin = "round";
+        }
+
+        function getLayoutHero(currentTime) {
+            const layout = [];
+            const lineHeightPx = fontSizeHero * LINE_HEIGHT;
+            const startY = cyHero - lineHeightPx;
+
+            TEXT_LINES.forEach((text, lineIndex) => {
+                const baseY = startY + (lineIndex * lineHeightPx);
+                let totalLinePixels = 0;
+                const charsInLine = [];
+
+                for (let i = 0; i < text.length; i++) {
+                    const centerIndex = (text.length - 1) / 2;
+                    const distFromCenter = Math.abs(i - centerIndex);
+
+                    const charTime = (currentTime * SPEED_FACTOR) - (distFromCenter * (WAVE_DELAY_CHARS / 1000)) - (Math.abs(lineIndex - 1) * (WAVE_DELAY_LINES / 1000));
+                    let rawSine = Math.sin(charTime);
+                    let pulse = rawSine > 0 ? (1 - Math.cos(rawSine * Math.PI)) / 2 : 0;
+
+                    const charWidth = ctxHero.measureText(text[i]).width;
+                    let lineSpacingBase = (lineIndex === 1) ? 0.05 : BASE_LETTER_SPACING;
+                    const dynamicSpacing = fontSizeHero * (lineSpacingBase + (pulse * EXTRA_SPACING_WAVE));
+
+                    charsInLine.push({ char: text[i], width: charWidth, spacing: dynamicSpacing, pulse, lineIndex });
+                    totalLinePixels += charWidth + (i < text.length - 1 ? dynamicSpacing : 0);
+                }
+
+                let currentX = cxHero - (totalLinePixels / 2);
+                charsInLine.forEach((data, i) => {
+                    const charCenterX = currentX + (data.width / 2);
+                    let yOffset = (data.lineIndex === 0) ? -data.pulse * VERTICAL_EXPLOSION : (data.lineIndex === 2) ? data.pulse * VERTICAL_EXPLOSION : 0;
+
+                    layout.push({ ...data, x: charCenterX, y: baseY + yOffset, color: PALETTE[(i + lineIndex) % PALETTE.length] });
+                    currentX += data.width + data.spacing;
+                });
+            });
+            return layout;
+        }
+
+        function animateHero(timestamp) {
+            if (!lastTimestampHero) lastTimestampHero = timestamp;
+            elapsedHero += timestamp - lastTimestampHero;
+            lastTimestampHero = timestamp;
+
+            ctxHero.clearRect(0, 0, wHero, hHero);
+            const currentLayout = getLayoutHero(elapsedHero);
+
+            // DRAW TUNNEL (ECHO)
+            currentLayout.forEach(data => {
+                const depth = data.pulse * MAX_DEPTH;
+                const zoom = 1 + (data.pulse * ZOOM_INTENSITY);
+                if (depth > 0.001) {
+                    for (let s = 1; s <= TUNNEL_STEPS; s++) {
+                        const t = s / TUNNEL_STEPS;
+                        const layerDepth = t * depth;
+                        // Fade alpha based on depth
+                        ctxHero.globalAlpha = (0.9 - (t * 0.4)) * data.pulse;
+                        ctxHero.fillStyle = ctxHero.strokeStyle = data.color;
+                        ctxHero.lineWidth = LETTER_THICKNESS;
+
+                        const scale = zoom * (1 - layerDepth);
+                        ctxHero.save();
+                        ctxHero.translate(data.x + (cxHero - data.x) * layerDepth, data.y + (cyHero - data.y) * layerDepth);
+                        ctxHero.scale(scale, scale);
+                        ctxHero.strokeText(data.char, 0, 0);
+                        ctxHero.fillText(data.char, 0, 0);
+                        ctxHero.restore();
+                    }
+                }
+            });
+
+            // DRAW FRONT TEXT (BLACK)
+            ctxHero.globalAlpha = 1.0;
+            ctxHero.fillStyle = ctxHero.strokeStyle = "black";
+            ctxHero.lineWidth = LETTER_THICKNESS;
+            currentLayout.forEach(data => {
+                const zoom = 1 + (data.pulse * ZOOM_INTENSITY);
+                ctxHero.save();
+                ctxHero.translate(data.x, data.y);
+                ctxHero.scale(zoom, zoom);
+                ctxHero.strokeText(data.char, 0, 0);
+                ctxHero.fillText(data.char, 0, 0);
+                ctxHero.restore();
+            });
+
+            requestAnimationFrame(animateHero);
+        }
+
+        /* ------------------------------------------------------------------
+           SCRIPT 3: FLUID KINETIC BACKGROUND (PORTFOLIO SECTION)
+           ------------------------------------------------------------------ */
+        const canvasBg = document.getElementById('kinetic-bg');
+        const ctxBg = canvasBg.getContext('2d');
+        const phrase = "AQUI TUDO É POSSÍVEL";
+
+        const targetRows = 7;
+        const waveSpeed = 0.002;
+        const waveFreqY = 0.4;
+        const waveFreqX = 0.2;
+
+        let wBg, hBg, baseRowHeight, colWidth;
+
+        function resizeBg() {
+            const parent = canvasBg.parentElement;
+            wBg = parent.offsetWidth;
+            hBg = parent.offsetHeight;
+
+            const dpr = window.devicePixelRatio || 1;
+            canvasBg.width = wBg * dpr;
+            canvasBg.height = hBg * dpr;
+            ctxBg.scale(dpr, dpr);
+
+            baseRowHeight = hBg / targetRows;
+            colWidth = wBg / phrase.length;
+        }
+
+        function animateBg(time) {
+            // Draw Black Background
+            ctxBg.fillStyle = "#000";
+            ctxBg.fillRect(0, 0, wBg, hBg);
+
+            const numCols = phrase.length;
+            const startRow = -6;
+            const endRow = targetRows + 6;
+
+            for (let j = 0; j < numCols; j++) {
+                const x = j * colWidth;
+                let totalColHeight = 0;
+                let rowHeights = [];
+
+                // Calculate Heights based on Sine Wave
+                for (let i = startRow; i < endRow; i++) {
+                    const phase = (time * waveSpeed) - (i * waveFreqY) + (j * waveFreqX);
+                    const rawWave = Math.sin(phase);
+                    const squashFactor = 0.75 + (0.40 * rawWave);
+                    const h = baseRowHeight * squashFactor;
+                    rowHeights.push(h);
+                    totalColHeight += h;
+                }
+
+                let currentY = (hBg - totalColHeight) / 2;
+                let heightIndex = 0;
+
+                for (let i = startRow; i < endRow; i++) {
+                    const h = rowHeights[heightIndex];
+                    heightIndex++;
+                    const isBlackRow = i % 2 === 0;
+
+                    // Draw Rect Block
+                    ctxBg.fillStyle = isBlackRow ? "#000" : "#fff";
+                    ctxBg.fillRect(x, currentY, colWidth + 1, h + 1);
+
+                    // Draw Text Character
+                    ctxBg.fillStyle = isBlackRow ? "#fff" : "#000";
+                    ctxBg.save();
+                    ctxBg.translate(x + colWidth / 2, currentY + h / 2);
+
+                    const fontSize = baseRowHeight * 0.96;
+                    ctxBg.font = `300 ${fontSize}px Montserrat`;
+                    ctxBg.textAlign = "center";
+                    ctxBg.textBaseline = "middle";
+
+                    const char = phrase[j % phrase.length];
+                    const currentSquash = h / baseRowHeight;
+                    ctxBg.scale(0.95, 0.85 * currentSquash); // Stretch/Squash Text
+
+                    if (char) {
+                        ctxBg.fillText(char, 0, 0);
+                    }
+                    ctxBg.restore();
+                    currentY += h;
+                }
+            }
+            requestAnimationFrame(animateBg);
+        }
+
+        /* ------------------------------------------------------------------
+           INITIALIZATION
+           ------------------------------------------------------------------ */
+        window.addEventListener('resize', () => {
+            resizeHero();
+            resizeBg();
+        });
+
+        // Wait for Fonts before starting animations
+        document.fonts.ready.then(() => {
+            resizeHero();
+            resizeBg();
+
+            requestAnimationFrame(animateHero);
+            requestAnimationFrame(animateBg);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork - Landy's Portfolio</title>
+
+    <!-- ================================================================= -->
+    <!-- FONTS IMPORT                                                      -->
+    <!-- ================================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;700&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ================================================================= */
+        /* CSS: GLOBAL STYLES                                                */
+        /* ================================================================= */
+        body {
+            margin: 0;
+            background: #fff;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            cursor: none;
+            color: #000;
+        }
+
+        /* ================================================================= */
+        /* CSS: CUSTOM CURSOR                                                */
+        /* ================================================================= */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+            mix-blend-mode: normal;
+        }
+
+        .cursor.grow {
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border: 2px solid #000;
+            opacity: 1;
+        }
+
+        /* ================================================================= */
+        /* CSS: HEADER                                                       */
+        /* ================================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            background: #000;
+            color: #fff;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.2s ease;
+            cursor: none;
+            line-height: 1;
+        }
+
+        .logo:hover {
+            color: #E64398;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            cursor: none;
+        }
+
+        nav a:hover {
+            color: #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: PAGE CONTENT WRAPPER                                         */
+        /* ================================================================= */
+        .content-wrapper {
+            padding-top: 150px;
+            padding-left: 5vw;
+            padding-right: 5vw;
+            padding-bottom: 100px;
+        }
+
+        .page-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 5rem;
+            color: #000;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ================================================================= */
+        /* CSS: GRID SYSTEM                                                  */
+        /* ================================================================= */
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .art-item {
+            display: block;
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .art-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .art-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* ================================================================= */
+        /* CSS: RESPONSIVE                                                   */
+        /* ================================================================= */
+        @media (max-width: 900px) {
+            header {
+                height: 80px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cursor {
+                display: none;
+            }
+
+            body,
+            .logo,
+            nav a {
+                cursor: auto;
+            }
+
+            .art-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .art-item {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor"></div>
+
+    <!-- ================================================================= -->
+    <!-- HEADER                                                            -->
+    <!-- ================================================================= -->
+    <header>
+        <a href="index.html" class="logo hover-target">LANDY'S PORTFOLIO</a>
+        <nav>
+            <a href="index.html#work" class="hover-target">TRABALHOS</a>
+            <a href="index.html" class="hover-target">SOBRE MIM</a>
+        </nav>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- CONTENT SECTION                                                   -->
+    <!-- ================================================================= -->
+    <div class="content-wrapper">
+        <h1 class="page-title hover-target">ART WORK</h1>
+
+        <div class="art-grid">
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&fit=crop" alt="Abstract 1">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1574169208507-843761948786?w=800&fit=crop" alt="Abstract 2">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&fit=crop" alt="Abstract 3">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&fit=crop" alt="Abstract 4">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1563089145-599997674d42?w=800&fit=crop" alt="Neon 1"></div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=800&fit=crop" alt="Pattern">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&fit=crop" alt="Paint"></div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1604871000636-074fa5117945?w=800&fit=crop" alt="Cyber"></div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&fit=crop" alt="Glitch">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&fit=crop" alt="Tech"></div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?w=800&fit=crop" alt="Liquid">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&fit=crop" alt="Dream"></div>
+
+            <!-- NEW ITEMS ADDED -->
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&fit=crop" alt="Fluid"></div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=800&fit=crop" alt="3D Sphere">
+            </div>
+            <div class="art-item hover-target"><img
+                    src="https://images.unsplash.com/photo-1605628629737-1237e1740947?w=800&fit=crop"
+                    alt="Abstract Colors"></div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SCRIPT: CURSOR LOGIC                                              -->
+    <!-- ================================================================= -->
+    <script>
+        const cursor = document.querySelector(".cursor");
+        const hoverTargets = document.querySelectorAll(".hover-target, a, .art-item");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        hoverTargets.forEach((target) => {
+            target.addEventListener("mouseenter", () => cursor.classList.add("grow"));
+            target.addEventListener("mouseleave", () => cursor.classList.remove("grow"));
+        });
+    </script>
+</body>
+
+</html>

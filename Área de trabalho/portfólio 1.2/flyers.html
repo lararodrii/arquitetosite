@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flyers Wall - Landy's Portfolio</title>
+
+        <!-- ================================================================= -->
+        <!-- FONTS IMPORT                                                      -->
+        <!-- ================================================================= -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;700&family=Montserrat:wght@300;400&display=swap"
+                rel="stylesheet">
+
+        <style>
+                /* ================================================================= */
+                /* CSS: GLOBAL STYLES                                                */
+                /* ================================================================= */
+                body {
+                        margin: 0;
+                        background: #fff;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        font-family: Arial, sans-serif;
+                        cursor: none;
+                        color: #000;
+                }
+
+                /* ================================================================= */
+                /* CSS: CUSTOM CURSOR                                                */
+                /* ================================================================= */
+                .cursor {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #000;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        transform: translate(-50%, -50%);
+                        transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+                        mix-blend-mode: normal;
+                }
+
+                .cursor.grow {
+                        width: 60px;
+                        height: 60px;
+                        background-color: transparent;
+                        border: 2px solid #000;
+                        opacity: 1;
+                }
+
+                /* ================================================================= */
+                /* CSS: HEADER                                                       */
+                /* ================================================================= */
+                header {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 110px;
+                        background: #000;
+                        color: #fff;
+                        padding: 0 50px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        z-index: 3000;
+                        box-sizing: border-box;
+                }
+
+                .logo {
+                        font-family: 'Anton', sans-serif;
+                        font-size: 4rem;
+                        letter-spacing: 2px;
+                        text-transform: uppercase;
+                        text-decoration: none;
+                        color: #fff;
+                        transition: color 0.2s ease;
+                        cursor: none;
+                        line-height: 1;
+                }
+
+                .logo:hover {
+                        color: #E64398;
+                }
+
+                nav {
+                        display: flex;
+                        gap: 40px;
+                }
+
+                nav a {
+                        color: #fff;
+                        text-decoration: none;
+                        font-family: Arial, sans-serif;
+                        font-size: 1.3rem;
+                        text-transform: uppercase;
+                        transition: color 0.2s ease;
+                        cursor: none;
+                }
+
+                nav a:hover {
+                        color: #E64398;
+                }
+
+                /* ================================================================= */
+                /* CSS: WALL CONTAINER (SCROLLABLE AREA)                             */
+                /* ================================================================= */
+                .wall-container {
+                        padding-top: 110px;
+                        /* Offset for fixed header */
+                        width: 100%;
+                }
+
+                /* ================================================================= */
+                /* CSS: MARQUEE ROWS & ANIMATION                                     */
+                /* ================================================================= */
+                .marquee-row {
+                        width: 100vw;
+                        height: 45vh;
+                        /* Robust Row Height */
+                        min-height: 400px;
+                        overflow: hidden;
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        background: #fff;
+                        border-bottom: 5px solid #fff;
+                        /* Separation Line */
+                        box-sizing: border-box;
+                }
+
+                .marquee-track {
+                        display: flex;
+                        width: max-content;
+                        height: 100%;
+                        gap: 10px;
+                        /* 10px GAP AS REQUESTED */
+                        will-change: transform;
+                }
+
+                .wall-item {
+                        flex-shrink: 0;
+                        height: 100%;
+                        aspect-ratio: 4/5;
+                        /* MAGAZINE COVER ASPECT RATIO */
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                .wall-item img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
+                        filter: grayscale(20%) contrast(110%);
+                        transition: transform 0.4s ease, filter 0.4s ease;
+                }
+
+                /* ================================================================= */
+                /* CSS: INTERACTION HOVER EFFECTS                                    */
+                /* ================================================================= */
+                .marquee-row:hover .marquee-track {
+                        animation-play-state: paused;
+                }
+
+                .wall-item:hover {
+                        z-index: 10;
+                }
+
+                .wall-item:hover img {
+                        transform: scale(1.1);
+                        filter: grayscale(0%) contrast(100%) brightness(1.1);
+                }
+
+                /* ================================================================= */
+                /* CSS: ANIMATION KEYFRAMES (INFINITE LOOP)                          */
+                /* ================================================================= */
+                @keyframes scroll-left {
+                        0% {
+                                transform: translateX(0);
+                        }
+
+                        /* Adjusted for Gap: -50% ensures seamless loop if duplicated */
+                        100% {
+                                transform: translateX(calc(-50% - 5px));
+                        }
+                }
+
+                @keyframes scroll-right {
+                        0% {
+                                transform: translateX(calc(-50% - 5px));
+                        }
+
+                        100% {
+                                transform: translateX(0);
+                        }
+                }
+
+                /* ALTERNATING DIRECTIONS PER ROW */
+                .marquee-row:nth-child(odd) .marquee-track {
+                        animation: scroll-left 60s linear infinite;
+                }
+
+                .marquee-row:nth-child(even) .marquee-track {
+                        animation: scroll-right 60s linear infinite;
+                }
+
+                /* ================================================================= */
+                /* CSS: RESPONSIVE                                                   */
+                /* ================================================================= */
+                @media (max-width: 900px) {
+                        header {
+                                height: 80px;
+                                padding: 0 20px;
+                        }
+
+                        .logo {
+                                font-size: 2.5rem;
+                        }
+
+                        .marquee-row {
+                                height: 35vh;
+                                min-height: 300px;
+                        }
+
+                        .wall-container {
+                                padding-top: 80px;
+                        }
+                }
+
+                @media (max-width: 600px) {
+                        .cursor {
+                                display: none;
+                        }
+
+                        body,
+                        .logo,
+                        nav a {
+                                cursor: auto;
+                        }
+
+                        .marquee-row {
+                                height: 30vh;
+                                min-height: 250px;
+                        }
+
+                        .marquee-track {
+                                animation-duration: 40s !important;
+                        }
+                }
+        </style>
+</head>
+
+<body>
+        <!-- CUSTOM CURSOR -->
+        <div class="cursor"></div>
+
+        <!-- ================================================================= -->
+        <!-- HEADER                                                            -->
+        <!-- ================================================================= -->
+        <header>
+                <a href="index.html" class="logo hover-target">LANDY'S PORTFOLIO</a>
+                <nav>
+                        <a href="index.html#work" class="hover-target">TRABALHOS</a>
+                        <a href="index.html" class="hover-target">SOBRE MIM</a>
+                </nav>
+        </header>
+
+        <!-- ================================================================= -->
+        <!-- WALL CONTAINER START                                              -->
+        <!-- ================================================================= -->
+        <div class="wall-container">
+
+                <!-- ROW 1 (Left Scroll) -->
+                <div class="marquee-row hover-target">
+                        <div class="marquee-track">
+                                <!-- ORIGINAL SET (12 IMAGES) -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1529139574466-a302d2d3f524?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+
+                                <!-- CLONED SET (12 IMAGES) FOR INFINITE LOOP -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1529139574466-a302d2d3f524?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=625&fit=crop"
+                                                alt="Cover"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                        </div>
+                </div>
+
+                <!-- ROW 2 (Right Scroll) - Album Art Style -->
+                <div class="marquee-row hover-target">
+                        <div class="marquee-track">
+                                <!-- ORIGINAL SET -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&h=625&fit=crop"
+                                                alt="Abstract"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&h=625&fit=crop"
+                                                alt="Abstract"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=625&fit=crop"
+                                                alt="Cyberpunk"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=625&fit=crop"
+                                                alt="Event"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1574169208507-843761948786?w=500&h=625&fit=crop"
+                                                alt="Art"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=500&h=625&fit=crop"
+                                                alt="Dark"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&h=625&fit=crop"
+                                                alt="Neon"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=500&h=625&fit=crop"
+                                                alt="Style"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+
+                                <!-- CLONED SET -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&h=625&fit=crop"
+                                                alt="Abstract"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&h=625&fit=crop"
+                                                alt="Abstract"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=625&fit=crop"
+                                                alt="Cyberpunk"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=625&fit=crop"
+                                                alt="Event"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1574169208507-843761948786?w=500&h=625&fit=crop"
+                                                alt="Art"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=500&h=625&fit=crop"
+                                                alt="Dark"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&h=625&fit=crop"
+                                                alt="Neon"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=500&h=625&fit=crop"
+                                                alt="Style"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                        </div>
+                </div>
+
+                <!-- ROW 3 (Right Scroll) - Fashion -->
+                <div class="marquee-row hover-target">
+                        <div class="marquee-track">
+                                <!-- ORIGINAL SET -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1560762195-4663bde6a3df?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1582260656094-1a5a54f8b05c?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1594950669299-a682548cb339?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+
+                                <!-- CLONED SET -->
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1560762195-4663bde6a3df?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1582260656094-1a5a54f8b05c?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1594950669299-a682548cb339?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&h=625&fit=crop"
+                                                alt="Fashion"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                                <div class="wall-item"><img
+                                                src="https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=500&h=625&fit=crop"
+                                                alt="Extra"></div>
+                        </div>
+                </div>
+
+                <!-- ================================================================= -->
+                <!-- SCRIPT: ROW GENERATION (CLONING)                                  -->
+                <!-- ================================================================= -->
+                <script>
+                        const container = document.querySelector('.wall-container');
+                        const models = document.querySelectorAll('.marquee-row');
+
+                        // Generate 7 additional rows to reach 10 total
+                        for (let i = 0; i < 7; i++) {
+                                const clone = models[i % 3].cloneNode(true);
+
+                                // Randomize Duration for Organic Feel
+                                // Base: 55s, Variance: 25s
+                                const randomDuration = 55 + Math.random() * 25;
+                                const track = clone.querySelector('.marquee-track');
+                                track.style.animationDuration = randomDuration + 's';
+
+                                container.appendChild(clone);
+                        }
+                </script>
+
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCRIPT: CURSOR LOGIC                                              -->
+        <!-- ================================================================= -->
+        <script>
+                const cursor = document.querySelector(".cursor");
+
+                // Wait for DOM updates from the cloning script
+                setTimeout(() => {
+                        const hoverTargets = document.querySelectorAll(".hover-target, a, .wall-item");
+
+                        document.addEventListener("mousemove", (e) => {
+                                cursor.style.left = e.clientX + "px";
+                                cursor.style.top = e.clientY + "px";
+                        });
+
+                        hoverTargets.forEach((target) => {
+                                target.addEventListener("mouseenter", () => cursor.classList.add("grow"));
+                                target.addEventListener("mouseleave", () => cursor.classList.remove("grow"));
+                        });
+                }, 100);
+        </script>
+</body>
+
+</html>

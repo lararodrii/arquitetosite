@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotografia - Landy's Portfolio</title>
+
+    <!-- ================================================================= -->
+    <!-- FONTS IMPORT                                                      -->
+    <!-- ================================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;700&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ================================================================= */
+        /* CSS: GLOBAL STYLES                                                */
+        /* ================================================================= */
+        body {
+            margin: 0;
+            background: #fff;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            cursor: none;
+            color: #000;
+        }
+
+        /* ================================================================= */
+        /* CSS: CUSTOM CURSOR                                                */
+        /* ================================================================= */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+            mix-blend-mode: normal;
+        }
+
+        .cursor.grow {
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border: 2px solid #000;
+            opacity: 1;
+        }
+
+        /* ================================================================= */
+        /* CSS: HEADER                                                       */
+        /* ================================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            background: #000;
+            color: #fff;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.2s ease;
+            cursor: none;
+            line-height: 1;
+        }
+
+        .logo:hover {
+            color: #E64398;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            cursor: none;
+        }
+
+        nav a:hover {
+            color: #E64398;
+        }
+
+        /* ================================================================= */
+        /* CSS: GALLERY WRAPPER                                              */
+        /* ================================================================= */
+        .gallery-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 160px 40px 100px 40px;
+            /* Top padding clears fixed header */
+        }
+
+        /* ================================================================= */
+        /* CSS: MASONRY LAYOUT                                               */
+        /* ================================================================= */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 40px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 40px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            filter: grayscale(100%);
+            transition: filter 0.4s ease, transform 0.4s ease;
+            cursor: none;
+        }
+
+        .masonry-item img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ================================================================= */
+        /* CSS: RESPONSIVE                                                   */
+        /* ================================================================= */
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+                column-gap: 20px;
+            }
+
+            .masonry-item {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                height: 80px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .gallery-container {
+                padding-top: 120px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .masonry-grid {
+                column-count: 1;
+            }
+
+            .cursor {
+                display: none;
+            }
+
+            body,
+            .logo,
+            nav a,
+            .masonry-item img {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor"></div>
+
+    <!-- ================================================================= -->
+    <!-- HEADER                                                            -->
+    <!-- ================================================================= -->
+    <header>
+        <a href="index.html" class="logo hover-target">LANDY'S PORTFOLIO</a>
+        <nav>
+            <a href="index.html#work" class="hover-target">TRABALHOS</a>
+            <a href="index.html" class="hover-target">SOBRE MIM</a>
+        </nav>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- GALLERY CONTENT                                                   -->
+    <!-- ================================================================= -->
+    <div class="gallery-container">
+        <div class="masonry-grid">
+
+            <!-- ITEM 1: SOCCER -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1517466787929-bc90951d64b8?w=600&auto=format&fit=crop&q=80"
+                    alt="Menina jogando futebol" class="hover-target">
+            </div>
+
+            <!-- ITEM 2: TATTOO -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=600&auto=format&fit=crop&q=80"
+                    alt="Detalhe de Tatuagem" class="hover-target">
+            </div>
+
+            <!-- ITEM 3: LIFESTYLE LAUGHING -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=80"
+                    alt="Rapazes rindo" class="hover-target">
+            </div>
+
+            <!-- ITEM 4: FASHION DETAIL -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&auto=format&fit=crop&q=80"
+                    alt="Detalhe Fashion" class="hover-target">
+            </div>
+
+            <!-- ITEM 5: SPORTS BENCH -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1526976668912-1a5436e72588?w=800&auto=format&fit=crop&q=80"
+                    alt="Banco de Reserva" class="hover-target">
+            </div>
+
+            <!-- ITEM 6: PODCAST -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1555819777-628f553c4488?w=600&auto=format&fit=crop&q=80"
+                    alt="Rapaz com microfone" class="hover-target">
+            </div>
+
+            <!-- ITEM 7: NIGHT PARTY -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1514525253440-b393452e3383?w=600&auto=format&fit=crop&q=80"
+                    alt="Festa óculos escuros" class="hover-target">
+            </div>
+
+            <!-- ITEM 8: URBAN STYLE -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=600&auto=format&fit=crop&q=80"
+                    alt="Estilo Urbano" class="hover-target">
+            </div>
+
+            <!-- ITEM 9: CROWD -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80"
+                    alt="Público em show" class="hover-target">
+            </div>
+
+            <!-- ITEM 10: NEON RAIN -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1516557621183-16a5b9b661d4?w=600&auto=format&fit=crop&q=80"
+                    alt="Chuva Neon" class="hover-target">
+            </div>
+
+            <!-- ITEM 11: SUBWAY -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&auto=format&fit=crop&q=80"
+                    alt="Metrô Candid" class="hover-target">
+            </div>
+
+            <!-- ITEM 12: ROOFTOP -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop&q=80"
+                    alt="Rooftop Night" class="hover-target">
+            </div>
+
+            <!-- ITEM 13: SKATE PARK -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?w=600&auto=format&fit=crop&q=80"
+                    alt="Skate Park" class="hover-target">
+            </div>
+
+            <!-- ITEM 14: COFFEE SHOP -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&auto=format&fit=crop&q=80"
+                    alt="Café Lifestyle" class="hover-target">
+            </div>
+
+            <!-- ITEM 15: URBAN LIGHT -->
+            <div class="masonry-item">
+                <img src="https://images.unsplash.com/photo-1495433324511-bf8e96f34355?w=600&auto=format&fit=crop&q=80"
+                    alt="Luzes Urbanas" class="hover-target">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SCRIPT: CURSOR LOGIC                                              -->
+    <!-- ================================================================= -->
+    <script>
+        const cursor = document.querySelector(".cursor");
+        const hoverTargets = document.querySelectorAll(".hover-target, a, .masonry-item img");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        hoverTargets.forEach((target) => {
+            target.addEventListener("mouseenter", () => cursor.classList.add("grow"));
+            target.addEventListener("mouseleave", () => cursor.classList.remove("grow"));
+        });
+    </script>
+</body>
+
+</html>
