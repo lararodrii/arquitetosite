@@ -86,6 +86,7 @@
             transition: color 0.2s ease;
             cursor: none;
             line-height: 1;
+            will-change: transform;
         }
 
         .logo:hover {
@@ -153,6 +154,7 @@
             transition: color 0.3s ease;
             letter-spacing: 2px;
             line-height: 1;
+            will-change: transform;
         }
 
         .cta-bar:hover .cta-text {
@@ -210,6 +212,7 @@
             box-sizing: border-box;
             cursor: none;
             border: none;
+            will-change: transform;
         }
 
         /* COLORS FOR 3D SHADOWS */
@@ -321,6 +324,7 @@
             filter: grayscale(100%);
             transition: filter 0.4s ease, transform 0.3s ease;
             cursor: none;
+            will-change: transform;
         }
 
         .masonry-item img:hover {
@@ -463,6 +467,11 @@
                 margin-bottom: 20px;
                 break-inside: avoid;
             }
+
+            /* 6. Performance: Hide Heavy Canvas */
+            #kinetic-bg {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -528,42 +537,42 @@
         <div class="masonry-grid">
             <!-- ORIGINAL ITEMS -->
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 1"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 2"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 3"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 4"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 5"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Work 6"></div>
 
             <!-- NEW ITEMS -->
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Architecture"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Fashion"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Neon"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Portrait"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Minimal"></div>
             <div class="masonry-item"><img
-                    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1964&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600&auto=format&fit=crop"
                     class="hover-target" alt="Urban"></div>
         </div>
     </section>
@@ -621,7 +630,7 @@
         let elapsedHero = 0;
 
         function resizeHero() {
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
             wHero = window.innerWidth;
             hHero = window.innerHeight;
             canvasHero.width = wHero * dpr;
@@ -732,7 +741,7 @@
         const ctxBg = canvasBg.getContext('2d');
         const phrase = "AQUI TUDO É POSSÍVEL";
 
-        const targetRows = 7;
+        const targetRows = 5;
         const waveSpeed = 0.002;
         const waveFreqY = 0.4;
         const waveFreqX = 0.2;
@@ -744,7 +753,7 @@
             wBg = parent.offsetWidth;
             hBg = parent.offsetHeight;
 
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
             canvasBg.width = wBg * dpr;
             canvasBg.height = hBg * dpr;
             ctxBg.scale(dpr, dpr);
