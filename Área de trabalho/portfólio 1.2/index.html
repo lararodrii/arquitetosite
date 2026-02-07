@@ -378,6 +378,92 @@
             position: relative;
             z-index: 20;
         }
+
+        /* ================================================================= */
+        /* CSS: FINAL SURGICAL MOBILE FIXES                                  */
+        /* ================================================================= */
+        @media (max-width: 768px) {
+
+            /* 1. Global Correction */
+            html,
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+
+            .cursor {
+                display: none !important;
+            }
+
+            /* 2. Header (Navbar) */
+            header {
+                height: 80px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+
+            /* 3. Hero Section & CTA */
+            .cta-bar {
+                padding: 30px 0;
+            }
+
+            .cta-text {
+                font-size: 8vw;
+            }
+
+            /* 4. Cards (Correção Crítica) */
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 340px;
+                margin-bottom: 40px;
+                margin-left: 10px;
+                /* Compensação visual da sombra */
+            }
+
+            /* Sombra 3D Ajustada */
+            .card.art {
+                box-shadow: -10px 10px 0 0 #0090D4;
+            }
+
+            .card.foto {
+                box-shadow: -10px 10px 0 0 #E64398;
+            }
+
+            .card.flyer {
+                box-shadow: -10px 10px 0 0 #F8CF2C;
+            }
+
+            /* 5. Galeria (Masonry) */
+            .masonry-grid {
+                display: block;
+                /* Ensure columns work */
+                column-count: 1;
+            }
+
+            .masonry-item {
+                width: 100%;
+                margin-bottom: 20px;
+                break-inside: avoid;
+            }
+        }
     </style>
 </head>
 
