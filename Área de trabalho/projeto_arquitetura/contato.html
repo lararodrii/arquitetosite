@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | MRGB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">MRGB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Residencial</a></li>
+                <li><a href="interiores.html">Interiores</a></li>
+                <li><a href="institucional.html">Institucional</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html" class="active">Contato</a></li>
+                <li><a href="filmes.html">Filmes</a></li>
+            </ul>
+        </nav>
+        <a href="contato.html" class="btn-contact">Contato</a>
+    </header>
+
+    <main>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h1>Entre em contato</h1>
+                <p>Basta preencher o formulário ao lado que entraremos em contato com você.</p>
+                <div style="margin: 3rem 0; width: 30px; border-bottom: 2px solid var(--border-color);"></div>
+                <h1>Get in Touch</h1>
+                <p>All you need to do is fill out this form, and we'll get in touch with you.</p>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Formulário enviado com sucesso!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome / Name (obrigatório)</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sobrenome">Sobrenome / Last name (obrigatório)</label>
+                        <input type="text" id="sobrenome" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone / Phone (obrigatório)</label>
+                    <input type="tel" id="telefone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail (obrigatório)</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="assunto">Assunto / Subject (obrigatório)</label>
+                    <input type="text" id="assunto" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Mensagem / Message (obrigatório)</label>
+                    <textarea id="mensagem" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="footer-col">
+                <p>SCS Quadra 01 Bloco H, Ed. Morro Vermelho,</p>
+                <p>Sala 608-610, Asa Sul.</p>
+                <p>Brasília/DF, Brasil</p>
+            </div>
+            <div class="footer-col">
+                <p><a href="mailto:contato@mrgb.com.br">contato@mrgb.com.br</a></p>
+                <p>+55 61 3242-4545</p>
+                <div class="social-links">
+                    <a href="#">WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <p>Nossos Horários:</p>
+                <p>Segunda - Sexta-feira</p>
+                <p>09:00 - 18:00</p>
+            </div>
+            <div class="footer-col">
+                <a href="#" class="back-to-top">Voltar ao topo ↑</a>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MRGB Arquitetura. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
